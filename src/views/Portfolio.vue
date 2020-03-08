@@ -1,20 +1,46 @@
 <template>
   <div>
-    <b-table striped hover :items="items"></b-table>
+    <br />
+    <b-container fluid>
+      <b-row>
+        <b-col align-self="center">
+          <b-form inline>
+            <b-input
+              id="inline-form-input-name"
+              class="mb-2 mr-sm-2 mb-sm-0"
+              placeholder="Search a stock"
+            ></b-input>
+            <b-button variant="primary" @click="search">Save</b-button>
+          </b-form>
+        </b-col>
+      </b-row>
+
+      <br />
+      <b-row>
+        <b-col>
+          <b-table striped hover :items="stocks"></b-table>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
+
+
 <script>
-  export default {
-    data() {
-      return {
-        items: [
-          { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-          { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-          { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-          { age: 38, first_name: 'Jami', last_name: 'Carney' }
-        ]
-      }
+import StockService from "@/services/StockService";
+
+export default {
+  data() {
+    return {
+      stocks: []
+    };
+  },
+  methods: {
+    async search() {
+      const response = await StockService.searchStock();
+      this.stocks = response.data.bestMatches;
     }
   }
+};
 </script>
