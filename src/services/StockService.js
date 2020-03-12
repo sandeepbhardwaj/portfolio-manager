@@ -1,11 +1,21 @@
-import axios from 'axios';
+//import axios from 'axios';
 
-const API_KEY = 'BF4MP5NG1TCWVXGQ'
-const API_URL = `https://www.alphavantage.co/query`;
+//const API_KEY = 'BF4MP5NG1TCWVXGQ'
+//const API_URL = `https://www.alphavantage.co/query`;
 
 //const API_URL = `https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=BA&apikey=${API_KEY}`;
 
 class StockService {
+    searchStock(searchKeyword) {
+        console.log(searchKeyword)
+        
+    }
+
+    getTimeSeriesDaily(stockName) {
+        console.log(stockName)
+    }
+
+    /*
     searchStock(searchKeyword) {
         return axios.get(API_URL, {
             params: {
@@ -25,6 +35,7 @@ class StockService {
             }
         });
     }
+    */
 
 }
 

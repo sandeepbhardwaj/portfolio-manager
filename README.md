@@ -1,4 +1,4 @@
-# portfolio-tracker-ui
+# portfolio-manager
 
 ## Project setup
 ```

@@ -2,6 +2,7 @@
   <div>
     <br />
     <b-container fluid>
+      <!-- search field and button -->
       <b-row>
         <b-col align-self="center">
           <b-form inline>
@@ -18,7 +19,7 @@
         </b-col>
       </b-row>
 
-      <!--row selection -->
+      <!--output of search -->
       <br />
       <b-row>
         <b-col>
@@ -26,7 +27,7 @@
             ref="selectableTable"
             selectable
             :select-mode="selectMode"
-            :items="stocks"
+            :items="searchResults"
             @row-selected="onRowSelected"
             responsive="sm"
           >
@@ -47,7 +48,7 @@
       <h3>Selected Stocks</h3>
       <b-row>
         <b-col>
-          <b-table striped hover :items="selected"></b-table>
+          <b-table striped hover :items="selectedStocks"></b-table>
         </b-col>
       </b-row>
     </b-container>
@@ -55,38 +56,34 @@
 </template>
 
 <script>
-import StockService from "@/services/StockService";
+import securities from "@/data/security_list.json";
 
 export default {
   data() {
     return {
-      searchKeyword: "",
-      stocks: [],
+      allSecurities:[],
       selectMode: "single",
-      selected: []
+      searchKeyword: "",
+      searchResults: [], 
+      selectedStocks: []
     };
   },
+  mounted() {
+    this.allSecurities = securities;
+  },
   methods: {
-    async search() {
-      const response = await StockService.searchStock(this.searchKeyword);
-      this.stocks = response.data.bestMatches;
+    //search method for stocks
+    search() {  
+      this.allSecurities.forEach(element => {
+        if(element.Symbol==this.searchKeyword)
+        {
+          this.searchResults.push(element)
+          return;
+        }
+      });
     },
     onRowSelected(items) {
-      const stockSymbol = {
-        Name: items[0]["2. name"],
-        Symbol: items[0]["1. symbol"],
-        Price: "",
-        Quantity: 1
-      };
-      //set the price
-      this.getLastClosedPrice(items[0]["1. symbol"]).then(response => {
-        stockSymbol.Price = response;
-      }),
-        this.selected.push(stockSymbol);
-    },
-    async getLastClosedPrice(stockName) {
-      const response = await StockService.getTimeSeriesDaily(stockName);
-      return response.data["Time Series (Daily)"]["2020-03-06"]["4. close"];
+      this.selectedStocks=items;
     }
   }
 };

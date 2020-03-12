@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Portfolio from '../views/Portfolio.vue'
 import Demo from '@/views/Demo.vue'
+import Search from '@/views/Search.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,11 @@ const routes = [
     path: '/demo',
     name: 'Demo',
     component: Demo
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   }
 ]
 
