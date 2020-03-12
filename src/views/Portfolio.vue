@@ -61,10 +61,10 @@ import securities from "@/data/security_list.json";
 export default {
   data() {
     return {
-      allSecurities:[],
+      allSecurities: [],
       selectMode: "single",
       searchKeyword: "",
-      searchResults: [], 
+      searchResults: [],
       selectedStocks: []
     };
   },
@@ -73,17 +73,16 @@ export default {
   },
   methods: {
     //search method for stocks
-    search() {  
+    search() {
       this.allSecurities.forEach(element => {
-        if(element.Symbol==this.searchKeyword)
-        {
-          this.searchResults.push(element)
+        if (element.Symbol == this.searchKeyword) {
+          this.searchResults.push(element);
           return;
         }
       });
     },
     onRowSelected(items) {
-      this.selectedStocks=items;
+      this.selectedStocks = items;
     }
   }
 };
