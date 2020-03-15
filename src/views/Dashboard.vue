@@ -1,71 +1,73 @@
 <template>
-  <div role="tablist">
-    <b-card bg-variant="secondary" text-variant="white" title="Your Investments">
-      <b-card-text>
-        <b-row>
-          <b-col cols="8" >Current Value: XXXXX</b-col>
-          <b-col cols="4" class="text-right;">Total Returns: xxXXXX%</b-col>
-        </b-row>
-      </b-card-text>
-    </b-card>
+  <div class="columns">
+    <div class="column is-3">
+      <sideMenu />
+    </div>
 
-    <!-- accordian-->
-
-    <b-card no-body class="mb-1">
-      <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-button style="text-align: left;" block href="#" v-b-toggle.accordion-1 variant="info">Sandy Insurance Fund | Total Invenstment :XXX</b-button>
-      </b-card-header>
-      <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
-        <b-card-body>
-          <b-card-text>
-            I start opened because
-            <code>visible</code> is
-            <code>true</code>
-          </b-card-text>
-          <b-card-text>{{ text }}</b-card-text>
-        </b-card-body>
-      </b-collapse>
-    </b-card>
-
-    <b-card no-body class="mb-1">
-      <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-button style="text-align: left;" block href="#" v-b-toggle.accordion-2 variant="info">Sandy NifyBank Fund | Total Invenstment :XXX</b-button>
-      </b-card-header>
-      <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-        <b-card-body>
-          <b-card-text>{{ text }}</b-card-text>
-        </b-card-body>
-      </b-collapse>
-    </b-card>
-
-    <b-card no-body class="mb-1">
-      <b-card-header header-tag="header" class="p-1" role="tab">
-        <b-button style="text-align: left;" block href="#" v-b-toggle.accordion-3 variant="info">Sandy NifyPharma Fund | Total Invenstment :XXX</b-button>
-      </b-card-header>
-      <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-        <b-card-body>
-          <b-card-text>{{ text }}</b-card-text>
-        </b-card-body>
-      </b-collapse>
-    </b-card>
+    <div class="column">
+      <summaryTile />
+      <div ref="chart" class="chart"></div>
+    </div>
   </div>
 </template>
-
 <script>
+import sideMenu from "@/components/Menu.vue";
+import summaryTile from "@/components/SummaryTile.vue";
+import ApexCharts from "apexcharts/dist/apexcharts.js";
 export default {
-  data() {
-    return {
-      text: `
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-          richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor
-          brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon
-          tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-          assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore
-          wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-          vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic
-          synth nesciunt you probably haven't heard of them accusamus labore VHS.
-        `
+  components: {
+    sideMenu,
+    summaryTile
+  },
+  mounted() {
+    // code from Example: https://apexcharts.com/javascript-chart-demos/area-charts/spline/
+    var options = {
+      chart: {
+        height: 350,
+        type: "area"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: "smooth"
+      },
+      series: [
+        {
+          name: "series1",
+          data: [31, 40, 28, 51, 42, 109, 100]
+        },
+        {
+          name: "series2",
+          data: [11, 32, 45, 32, 34, 52, 41]
+        }
+      ],
+
+      xaxis: {
+        type: "datetime",
+        categories: [
+          "2018-09-19T00:00:00",
+          "2018-09-19T01:30:00",
+          "2018-09-19T02:30:00",
+          "2018-09-19T03:30:00",
+          "2018-09-19T04:30:00",
+          "2018-09-19T05:30:00",
+          "2018-09-19T06:30:00"
+        ]
+      },
+      tooltip: {
+        x: {
+          format: "dd/MM/yy HH:mm"
+        }
+      }
     };
+
+    if (this.$refs.chart) {
+      // HTML element exists
+      var chart = new ApexCharts(this.$refs.chart, options);
+      chart.render();
+    }
   }
 };
 </script>
+

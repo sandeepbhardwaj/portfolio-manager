@@ -1,10 +1,10 @@
 <template>
   <div id="main">
     <navbar />
-    <br>
-    <b-container>
+   
+    <div class="container is-fluid">
       <router-view></router-view>
-    </b-container>
+    </div>
   </div>
 </template>
 
