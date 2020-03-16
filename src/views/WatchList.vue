@@ -6,10 +6,12 @@
             rounded
             v-model="name"
             :data="filteredDataArray"
-            placeholder="e.g. jQuery"
+            field="Symbol"
+            placeholder="e.g. HDFC"
             icon="magnify"
             clearable
-            @select="option => selected = option"
+            :clear-on-select=true
+            @select="addToWatchList" 
           >
             <template slot="empty">No results found</template>
           </b-autocomplete>
@@ -28,6 +30,7 @@
 <script>
 import dashboardLayout from "@/layouts/dashbaordLayout.vue";
 import watchlist from "@/components/Watchlist.vue";
+import stocks from "@/data/security_list.json";
 
 export default {
   components: {
@@ -36,35 +39,30 @@ export default {
   },
   data() {
     return {
-      data: [
-        "Angular",
-        "Angular 2",
-        "Aurelia",
-        "Backbone",
-        "Ember",
-        "jQuery",
-        "Meteor",
-        "Node.js",
-        "Polymer",
-        "React",
-        "RxJS",
-        "Vue.js"
-      ],
+      data: stocks,
       name: "",
       selected: null
     };
+  },
+  methods:{
+    addToWatchList(selected){
+      this.selected=selected.Symbol;
+    }
   },
   computed: {
     filteredDataArray() {
       return this.data.filter(option => {
         return (
-          option
+          option.Symbol
             .toString()
             .toLowerCase()
             .indexOf(this.name.toLowerCase()) >= 0
         );
       });
     }
+  },
+  mounted:{
+
   }
 };
 </script>
