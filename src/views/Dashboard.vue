@@ -1,22 +1,16 @@
 <template>
-  <div class="columns">
-    <div class="column is-3">
-      <sideMenu />
-    </div>
-
-    <div class="column">
+ <dashboardLayout>
       <summaryTile />
       <div ref="chart" class="chart"></div>
-    </div>
-  </div>
+ </dashboardLayout>
 </template>
 <script>
-import sideMenu from "@/components/Menu.vue";
+import dashboardLayout from "@/layouts/dashbaordLayout.vue";
 import summaryTile from "@/components/SummaryTile.vue";
 import ApexCharts from "apexcharts/dist/apexcharts.js";
 export default {
   components: {
-    sideMenu,
+    dashboardLayout,
     summaryTile
   },
   mounted() {

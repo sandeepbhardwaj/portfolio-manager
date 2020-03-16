@@ -1,10 +1,5 @@
 <template>
-  <div class="columns">
-    <div class="column is-3">
-      <sideMenu />
-    </div>
-
-    <div class="column">
+  <dashboardLayout>
       <nav class="breadcrumb" aria-label="breadcrumbs">
         <ul>
           <li>
@@ -18,17 +13,16 @@
       <hr />
       
       <smallcase />
-    </div>
-  </div>
+  </dashboardLayout>
 </template>
 
 <script>
-import sideMenu from "@/components/Menu.vue";
+import dashboardLayout from "@/layouts/dashbaordLayout.vue";
 import smallcase from "@/components/SmallcaseSummay.vue";
 
 export default {
   components: {
-    sideMenu,
+    dashboardLayout,
     smallcase
   }
 };

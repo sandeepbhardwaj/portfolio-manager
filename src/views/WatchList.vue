@@ -1,10 +1,5 @@
 <template>
-  <div class="columns">
-    <div class="column is-3">
-      <sideMenu />
-    </div>
-
-    <div class="column">
+  <dashboardLayout>
       <section>
         <b-field label="Search Stocks">
           <b-autocomplete
@@ -27,18 +22,17 @@
       </p>
       <hr />
       <watchlist/>
-    </div>
-  </div>
+  </dashboardLayout>
 </template>
 
 <script>
-import sideMenu from "@/components/Menu.vue";
+import dashboardLayout from "@/layouts/dashbaordLayout.vue";
 import watchlist from "@/components/Watchlist.vue";
 
 export default {
   components: {
-    sideMenu,
-    watchlist
+    watchlist,
+    dashboardLayout
   },
   data() {
     return {
