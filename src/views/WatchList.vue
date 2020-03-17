@@ -1,29 +1,29 @@
 <template>
   <dashboardLayout>
-      <section>
-        <b-field label="Search Stocks">
-          <b-autocomplete
-            rounded
-            v-model="name"
-            :data="filteredDataArray"
-            field="Symbol"
-            placeholder="e.g. HDFC"
-            icon="magnify"
-            clearable
-            :clear-on-select=true
-            @select="addToWatchList" 
-          >
-            <template slot="empty">No results found</template>
-          </b-autocomplete>
-        </b-field>
-      </section>
-      <hr />
-      <p class="content">
-        <b>Selected:</b>
-        {{ selected }}
-      </p>
-      <hr />
-      <watchlist/>
+    <section>
+      <b-field label="Search Stocks">
+        <b-autocomplete
+          rounded
+          v-model="name"
+          :data="filteredDataArray"
+          field="Symbol"
+          placeholder="e.g. HDFC"
+          icon="magnify"
+          clearable
+          :clear-on-select="true"
+          @select="addToWatchList"
+        >
+          <template slot="empty">No results found</template>
+        </b-autocomplete>
+      </b-field>
+    </section>
+    <hr />
+    <p class="content">
+      <b>Selected:</b>
+      {{ selected }}
+    </p>
+    <hr />
+    <watchlist :items="watchlist" />
   </dashboardLayout>
 </template>
 
@@ -41,28 +41,30 @@ export default {
     return {
       data: stocks,
       name: "",
-      selected: null
+      selected: null,
+      watchlist: []
     };
   },
-  methods:{
-    addToWatchList(selected){
-      this.selected=selected.Symbol;
+  methods: {
+    addToWatchList(selected) {
+      this.selected = selected.Symbol;
+      this.watchlist.push({
+        Symbol: this.selected,
+        "current_price": "Yesbank"
+      });
     }
   },
   computed: {
     filteredDataArray() {
       return this.data.filter(option => {
         return (
-          option.Symbol
-            .toString()
+          option.Symbol.toString()
             .toLowerCase()
             .indexOf(this.name.toLowerCase()) >= 0
         );
       });
     }
   },
-  mounted:{
-
-  }
+  mounted: {}
 };
 </script>
