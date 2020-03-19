@@ -17,45 +17,57 @@
         </b-autocomplete>
       </b-field>
     </section>
-    <hr />
-    <p class="content">
-      <b>Selected:</b>
-      {{ selected }}
-    </p>
-    <hr />
-    <watchlist :items="watchlist" />
+  <hr />
+  <p class="content">
+    <b>Selected:</b>
+    {{ selected }}
+  </p>
+  <hr />
+  <watchlist :items="watchlist" />
   </dashboardLayout>
-</template>
+</template >
 
-<script>
-import dashboardLayout from "@/layouts/dashbaordLayout.vue";
-import watchlist from "@/components/Watchlist.vue";
-import stocks from "@/data/security_list.json";
+  <script>
+    import dashboardLayout from "@/layouts/dashbaordLayout.vue";
+    import watchlist from "@/components/Watchlist.vue";
+    import stocks from "@/data/security_list.json";
+    import cmbhav from "@/data/cm18MARbhav.json";
 
 export default {
-  components: {
-    watchlist,
-    dashboardLayout
-  },
+      components: {
+      watchlist,
+      dashboardLayout
+    },
   data() {
     return {
       data: stocks,
+      cmbhav: cmbhav,
       name: "",
       selected: null,
       watchlist: []
     };
   },
   methods: {
-    addToWatchList(selected) {
+      addToWatchList(selected) {
       this.selected = selected.Symbol;
       this.watchlist.push({
-        Symbol: this.selected,
-        "current_price": "Yesbank"
+      Symbol: this.selected,
+      "current_price":this.getBhav(Symbol)
       });
+    },
+    getBhav(Symbol)
+    {
+      this.cmbhav.forEach(element => {
+        console.log("element",element);
+        if (element.Symbol == Symbol.toLowerCase()) {
+          return element;
+        }
+      });
+
     }
   },
   computed: {
-    filteredDataArray() {
+      filteredDataArray() {
       return this.data.filter(option => {
         return (
           option.Symbol.toString()
