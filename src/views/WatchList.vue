@@ -37,7 +37,10 @@ export default {
       data: stocks,
       cmbhav: cmbhav,
       name: "",
-      watchlist: []
+      watchlist: [
+        { Symbol: "HDFC", current_price: 876 },
+        { Symbol: "YESBANK", current_price: 60 }
+      ]
     };
   },
   methods: {
@@ -52,7 +55,10 @@ export default {
     getBhav(symbol) {
       for (let i = 0; i < this.cmbhav.length; i++) {
         const element = this.cmbhav[i];
-        if (element.SYMBOL.toString().toLowerCase() === symbol.toString().toLowerCase()) {
+        if (
+          element.SYMBOL.toString().toLowerCase() ===
+          symbol.toString().toLowerCase()
+        ) {
           return element.CLOSE;
         }
       }
